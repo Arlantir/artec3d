@@ -12,7 +12,7 @@ Cервис по сжатию изображений реализован в в�
 а альтернатива не работает в текущей конфигурации, будет приведено два варианта установки проекта.
 ```
 ## Установка в Docker
-```
+```bigquery
 $ git clone ... && cd ...
 $ cp config/database.yml.example config/database.yml
 $ cp config/cable.yml.example config/cable.yml
@@ -22,11 +22,17 @@ $ docker-compose run --rm runner bundle
 $ docker-compose run --rm runner rails db:create
 $ docker-compose run --rm runner rails db:migrate
 ```
+## Использование Gmail почты
+Прописать **username** и **password** от почты Gmail в файл **.env**
+```bigquery
+GMAIL_USERNAME="your username"
+GMAIL_PASSWORD="your password"
+``` 
 ## Запуск контейнеров
 `$ docker-compose up`
 
 ## Классическая установка
-```
+```bigquery
 $ git clone ... && cd ...
 $ cp config/database.yml.example config/database.yml
 $ cp config/cable.yml.example config/cable.yml
@@ -37,15 +43,32 @@ $ rails db:migrate
 $ sudo apt-get install imagemagick
 ```
 
-## Использование Gmail почты
-Прописать **username** и **password** от почты Gmail в файл **.env** 
+## Использование gem letter_opener
+В приложении перейти в файл `config/environments/development.rb`
+
+Закомментировать:
+```bigquery
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = {
+       address: "smtp.gmail.com",
+       port: 587,
+       user_name: ENV['GMAIL_USERNAME'],
+       password: ENV['GMAIL_PASSWORD'],
+       authentication: :plain,
+       enable_starttls_auto: true
+  }
 ```
-GMAIL_USERNAME="your username"
-GMAIL_PASSWORD="your password"
+
+Убрать комментарий:
+```bigquery
+  config.action_mailer.default_url_options = { protocol: 'http', host: 'localhost:3000' }
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
 ``` 
 
 ## Запуск приложения
-```
+```bigquery
 $ rails s
 $ bundle exec sidekiq
 ```
