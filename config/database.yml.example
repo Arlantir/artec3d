@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: artec3d_development
+
+test:
+  <<: *default
+  database: artec3d_test
+
+production:
+  <<: *default
+  database: artec3d_production
+  username: artec3d
+  password: <%= ENV['ARTEC3D_DATABASE_PASSWORD'] %>
