@@ -14,6 +14,7 @@ gem "mini_magick"
 group :development, :test do
   gem 'pry'
   gem "letter_opener"
+  gem 'dotenv-rails'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
