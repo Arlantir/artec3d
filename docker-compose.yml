@@ -50,6 +50,10 @@ services:
     ports:
       - '${APP_PORT:-3000}:3000'
 
+  sidekiq:
+    <<: *backend
+    command: bundle exec sidekiq
+
   postgres:
     image: postgres:12
     restart: unless-stopped

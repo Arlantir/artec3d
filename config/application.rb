@@ -26,12 +26,6 @@ module Artec3d
 
     config.session_store :cookie_store, key: '_interslice_session'
 
-    config.image_optim = {
-      pack: true,
-      pngout: false,
-      svgo: false
-    }
-
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
